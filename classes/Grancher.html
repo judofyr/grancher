@@ -1,0 +1,295 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang='en'>
+  <head>
+    <title>Class: Grancher [Grancher]</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+    <link href='.././rdoc-style.css' media='screen' rel='stylesheet' type='text/css'>
+    <script type='text/javascript'>
+      //<![CDATA[
+        function popupCode(url) {
+          window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+        }
+        
+        function toggleCode(id) {
+          var code = document.getElementById(id)
+        
+          code.style.display = code.style.display != 'block' ? 'block' : 'none'
+          return true
+        }
+        
+        // Make codeblocks hidden by default
+        document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+      //]]>
+    </script>
+  </head>
+  <body class='page'>
+    <div class='class' id='wrapper'>
+      <div class='header'>
+        <h1 class='name'>
+          <span class='type'>Class</span>
+          Grancher
+        </h1>
+        <ol class='paths'>
+          <li>
+            <a href="../files/lib/grancher/task_rb.html">lib/grancher/task.rb</a>
+          </li>
+          <li class='other'>
+            <a href="../files/lib/grancher_rb.html">lib/grancher.rb</a>
+          </li>
+          <li>
+            <a class='show' href='#' onclick='this.parentNode.parentNode.className += " expanded"; this.parentNode.removeChild(this); return false'>show all</a>
+          </li>
+        </ol>
+        <div class='parent'>
+          Parent:
+          <strong>Object</strong>
+        </div>
+      </div>
+      <div id='content'>
+        <div id='text'>
+          <div id='description'>
+            <h2>What is <a href="Grancher.html">Grancher</a>?</h2>
+            <p>
+            With <a href="Grancher.html">Grancher</a> you can easily copy folders and
+            files to a Git branch.
+            </p>
+            <h3>How?</h3>
+            <h4>As a library</h4>
+            <pre>require 'grancher'&#x000A;grancher = Grancher.new do |g|&#x000A;  g.branch = 'gh-pages'&#x000A;  g.push_to = 'origin'&#x000A;  g.repo = 'some_repo'          # defaults to '.'&#x000A;  g.message = 'Updated website' # defaults to 'Updated files.'&#x000A;&#x000A;  # Put the website-directory in the root&#x000A;  g.directory 'website'&#x000A;&#x000A;  # doc -&gt; doc&#x000A;  g.directory 'doc', 'doc'&#x000A;&#x000A;  # README -&gt; README&#x000A;  g.file 'README'&#x000A;&#x000A;  # AUTHORS -&gt; authors.txt&#x000A;  g.file 'AUTHORS', 'authors.txt'&#x000A;&#x000A;  # CHANGELOG -&gt; doc/CHANGELOG&#x000A;  g.file 'CHANGELOG', 'doc/'&#x000A;end&#x000A;&#x000A;grancher.commit&#x000A;grancher.push</pre>
+            <h4>As a Raketask</h4>
+            <p>
+            Instead of:
+            </p>
+            <pre>require 'grancher'&#x000A;Grancher.new do |g|&#x000A;  ...&#x000A;end</pre>
+            <p>
+            Do:
+            </p>
+            <pre>require 'grancher/task'&#x000A;Grancher::Task.new do |g|&#x000A;  ...&#x000A;end</pre>
+            <p>
+            See <a href="Grancher/Task.html">Grancher::Task</a> for more information.
+            </p>
+            <h3>Keeping the files already in the branch</h3>
+            <p>
+            By default, <a href="Grancher.html">Grancher</a> will remove any files
+            already in the branch. Use keep and <a
+            href="Grancher.html#M000006">keep_all</a> to change this behaviour:
+            </p>
+            <pre>Grancher.new do |g|&#x000A;  # Only keep some files/folders:&#x000A;  g.keep 'index.html', 'test', 'lib/grancer'&#x000A;&#x000A;  # Keep all the files in the repo:&#x000A;  g.keep_all&#x000A;end</pre>
+          </div>
+          <div id='method-list'>
+            <h2>Methods</h2>
+            <h3>public class</h3>
+            <ol>
+              <li><a href="#M000001">new</a></li>
+            </ol>
+            <h3>public instance</h3>
+            <ol>
+              <li><a href="#M000008">commit</a></li>
+              <li><a href="#M000003">directory</a></li>
+              <li><a href="#M000004">file</a></li>
+              <li><a href="#M000002">gash</a></li>
+              <li><a href="#M000005">keep</a></li>
+              <li><a href="#M000006">keep_all</a></li>
+              <li><a href="#M000007">push</a></li>
+            </ol>
+          </div>
+          <div id='section'>
+            <div id='class-list'>
+              <h2>Classes and Modules</h2>
+              Class <a href="Grancher/Task.html" class="link">Grancher::Task</a><br />
+            </div>
+            <div id='attribute-list'>
+              <h2 class='section-bar'>Attributes</h2>
+              <div class='name-list'>
+                <table>
+                  <tr class='top-aligned-row context-row'>
+                    <td class='context-item-name'>branch</td>
+                    <td class='context-item-value'>[RW]</td>
+                    <td class='context-item-desc'></td>
+                  </tr>
+                  <tr class='top-aligned-row context-row'>
+                    <td class='context-item-name'>directories</td>
+                    <td class='context-item-value'>[R]</td>
+                    <td class='context-item-desc'></td>
+                  </tr>
+                  <tr class='top-aligned-row context-row'>
+                    <td class='context-item-name'>files</td>
+                    <td class='context-item-value'>[R]</td>
+                    <td class='context-item-desc'></td>
+                  </tr>
+                  <tr class='top-aligned-row context-row'>
+                    <td class='context-item-name'>gash</td>
+                    <td class='context-item-value'>[R]</td>
+                    <td class='context-item-desc'></td>
+                  </tr>
+                  <tr class='top-aligned-row context-row'>
+                    <td class='context-item-name'>message</td>
+                    <td class='context-item-value'>[RW]</td>
+                    <td class='context-item-desc'></td>
+                  </tr>
+                  <tr class='top-aligned-row context-row'>
+                    <td class='context-item-name'>push_to</td>
+                    <td class='context-item-value'>[RW]</td>
+                    <td class='context-item-desc'></td>
+                  </tr>
+                  <tr class='top-aligned-row context-row'>
+                    <td class='context-item-name'>repo</td>
+                    <td class='context-item-value'>[RW]</td>
+                    <td class='context-item-desc'></td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <div id='methods'>
+              <h2>Public class methods</h2>
+              <div class='public-class method' id='method-M000001'>
+                <a name='M000001'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>new</span>
+                  <span class='arguments'>(&amp;blk)</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000001-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000001-source'>    <span class="ruby-comment cmt"># File lib/grancher.rb, line 72</span>&#x000A;72:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">blk</span>)&#x000A;73:     <span class="ruby-ivar">@directories</span> = {}&#x000A;74:     <span class="ruby-ivar">@files</span> = {}&#x000A;75:     <span class="ruby-ivar">@keep</span> = []&#x000A;76:     <span class="ruby-ivar">@repo</span> = <span class="ruby-value str">'.'</span>&#x000A;77:     <span class="ruby-ivar">@message</span> = <span class="ruby-value str">'Updated files.'</span>&#x000A;78:     &#x000A;79:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">blk</span>.<span class="ruby-identifier">arity</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>&#x000A;80:       <span class="ruby-identifier">blk</span>.<span class="ruby-identifier">call</span>(<span class="ruby-keyword kw">self</span>)&#x000A;81:     <span class="ruby-keyword kw">else</span>&#x000A;82:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">instance_eval</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">blk</span>)&#x000A;83:     <span class="ruby-keyword kw">end</span>&#x000A;84:   <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <h2>Public instance methods</h2>
+              <div class='public-instance method' id='method-M000008'>
+                <a name='M000008'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>commit</span>
+                  <span class='arguments'>(message = nil)</span>
+                </div>
+                <div class='description'>
+                  <p>
+                  Commits the changes.
+                  </p>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000008-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000008-source'>     <span class="ruby-comment cmt"># File lib/grancher.rb, line 117</span>&#x000A;117:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">commit</span>(<span class="ruby-identifier">message</span> = <span class="ruby-keyword kw">nil</span>)&#x000A;118:     <span class="ruby-identifier">build</span>.<span class="ruby-identifier">commit</span>(<span class="ruby-identifier">message</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">message</span>())&#x000A;119:   <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='public-instance method' id='method-M000003'>
+                <a name='M000003'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>directory</span>
+                  <span class='arguments'>(from, to = nil)</span>
+                </div>
+                <div class='description'>
+                  <p>
+                  Stores the directory <tt>from</tt> at <tt>to</tt>.
+                  </p>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000003-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000003-source'>    <span class="ruby-comment cmt"># File lib/grancher.rb, line 92</span>&#x000A;92:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">directory</span>(<span class="ruby-identifier">from</span>, <span class="ruby-identifier">to</span> = <span class="ruby-keyword kw">nil</span>)&#x000A;93:     <span class="ruby-ivar">@directories</span>[<span class="ruby-identifier">from</span>.<span class="ruby-identifier">chomp</span>(<span class="ruby-value str">'/'</span>)] = <span class="ruby-identifier">to</span>&#x000A;94:   <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='public-instance method' id='method-M000004'>
+                <a name='M000004'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>file</span>
+                  <span class='arguments'>(from, to = nil)</span>
+                </div>
+                <div class='description'>
+                  <p>
+                  Stores the file <tt>from</tt> at <tt>to</tt>.
+                  </p>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000004-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000004-source'>    <span class="ruby-comment cmt"># File lib/grancher.rb, line 97</span>&#x000A;97:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">file</span>(<span class="ruby-identifier">from</span>, <span class="ruby-identifier">to</span> = <span class="ruby-keyword kw">nil</span>)&#x000A;98:     <span class="ruby-ivar">@files</span>[<span class="ruby-identifier">from</span>] = <span class="ruby-identifier">to</span>&#x000A;99:   <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='public-instance method' id='method-M000002'>
+                <a name='M000002'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>gash</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='description'>
+                  <p>
+                  Returns our Gash-object
+                  </p>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000002-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000002-source'>    <span class="ruby-comment cmt"># File lib/grancher.rb, line 87</span>&#x000A;87:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">gash</span>&#x000A;88:     <span class="ruby-ivar">@gash</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Gash</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@repo</span>, <span class="ruby-ivar">@branch</span>)&#x000A;89:   <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='public-instance method' id='method-M000005'>
+                <a name='M000005'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>keep</span>
+                  <span class='arguments'>(*files)</span>
+                </div>
+                <div class='description'>
+                  <p>
+                  Keeps the files (or directories) given.
+                  </p>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000005-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000005-source'>     <span class="ruby-comment cmt"># File lib/grancher.rb, line 102</span>&#x000A;102:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">keep</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">files</span>)&#x000A;103:     <span class="ruby-ivar">@keep</span>.<span class="ruby-identifier">concat</span>(<span class="ruby-identifier">files</span>)&#x000A;104:   <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='public-instance method' id='method-M000006'>
+                <a name='M000006'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>keep_all</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='description'>
+                  <p>
+                  Keep all the files in the branch.
+                  </p>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000006-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000006-source'>     <span class="ruby-comment cmt"># File lib/grancher.rb, line 107</span>&#x000A;107:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">keep_all</span>&#x000A;108:     <span class="ruby-ivar">@keep_all</span> = <span class="ruby-keyword kw">true</span>&#x000A;109:   <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='public-instance method' id='method-M000007'>
+                <a name='M000007'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>push</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='description'>
+                  <p>
+                  Pushes the branch to the remote.
+                  </p>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000007-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000007-source'>     <span class="ruby-comment cmt"># File lib/grancher.rb, line 112</span>&#x000A;112:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">push</span>&#x000A;113:     <span class="ruby-identifier">gash</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">:git</span>, <span class="ruby-value str">'push'</span>, <span class="ruby-ivar">@push_to</span>, <span class="ruby-ivar">@branch</span> <span class="ruby-operator">+</span> <span class="ruby-value str">':refs/heads/'</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@branch</span>)&#x000A;114:   <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id='footer-push'></div>
+    </div>
+    <div id='footer'>
+      <a href="http://github.com/mislav/hanna/tree/master"><strong>Hanna</strong> RDoc template</a>
+    </div>
+  </body>
+</html>
