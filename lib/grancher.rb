@@ -66,7 +66,7 @@ require 'gash'
 # 
 #
 class Grancher
-  attr_accessor :branch, :push_to, :repo, :message
+  attr_accessor :branch, :refspec, :push_to, :repo, :message
   attr_reader :gash, :files, :directories
   
   def initialize(&blk)
@@ -100,7 +100,7 @@ class Grancher
   
   # Keeps the files (or directories) given.
   def keep(*files)
-    @keep.concat(files)
+    @keep.concat(files.flatten)
   end
   
   # Keep all the files in the branch.
@@ -108,9 +108,19 @@ class Grancher
     @keep_all = true
   end
   
+  def refspec=(refspec)
+    @branch = refspec.match(/^\+?(.*)\:/)[1] || "master"
+    @refspec = refspec
+  end
+
+  def branch=(branch)
+    @refspec = "#{branch}:refs/heads/#{branch}"
+    @branch = branch
+  end
+
   # Pushes the branch to the remote.
   def push
-    gash.send(:git, 'push', @push_to, @branch + ':refs/heads/' + @branch)
+    gash.send(:git, 'push', @push_to, @refspec)
   end
   
   # Commits the changes.
