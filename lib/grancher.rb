@@ -109,7 +109,11 @@ class Grancher
   end
   
   def refspec=(refspec)
-    @branch = refspec.match(/^\+?(.*)\:/)[1] || "master"
+    if refspec =~ /^\+?(.*)\:/
+      @branch = $1
+    else
+      raise ArgumentError, "refspec syntax error"
+    end
     @refspec = refspec
   end
 
