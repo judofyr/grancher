@@ -109,10 +109,10 @@ class Grancher
   end
   
   def refspec=(refspec)
-    if refspec =~ /^\+?(.*)\:/
+    if refspec =~ /^\+?(.*)(?:\:.*)$/
       @branch = $1
     else
-      raise ArgumentError, "refspec syntax error"
+      raise ArgumentError, "refspec syntax error. Should be: branch:refs/heads/branch"
     end
     @refspec = refspec
   end
