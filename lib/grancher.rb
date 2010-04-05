@@ -75,11 +75,12 @@ class Grancher
     @keep = []
     @repo = '.'
     @message = 'Updated files.'
-    
-    if blk.arity == 1
-      blk.call(self)
-    else
-      self.instance_eval(&blk)
+    if block_given?
+      if blk.arity == 1
+        blk.call(self)
+      else
+        self.instance_eval(&blk)
+      end
     end
   end
   
