@@ -9,8 +9,8 @@ require 'gash'
 #
 #   require 'grancher'
 #   grancher = Grancher.new do |g|
-#     g.branch = 'gh-pages'
-#     g.push_to = 'origin' 
+#     g.branch = 'gh-pages'         # alternatively, g.refspec = 'ghpages:/refs/heads/ghpages'
+#     g.push_to = 'origin'
 #     g.repo = 'some_repo'          # defaults to '.'
 #     g.message = 'Updated website' # defaults to 'Updated files.'
 #   
@@ -108,7 +108,9 @@ class Grancher
   def keep_all
     @keep_all = true
   end
-  
+
+  # Full git refspec to push to. Setting g.refspec will replace g.branch. Used when the remote
+  # branch is different to the local branch. Any git refspec is valid ('man git-push' for details)
   def refspec=(refspec)
     if refspec =~ /^\+?(.*)(?:\:.*)$/
       @branch = $1
