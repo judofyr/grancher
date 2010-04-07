@@ -159,7 +159,8 @@ class Grancher
   
   def add_directories
     @directories.each do |from, to|
-      Dir[from + '/**/*'].each do |file|
+      files = Dir.glob(from + '/**/*', File::FNM_DOTMATCH).delete_if{|f| f =~ /\/\.\.?$/ }
+      files.each do |file|
         next if File.directory?(file)
         content = File.read(file)
         base = if to
