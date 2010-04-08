@@ -65,6 +65,17 @@ require 'gash'
 #    end
 # 
 #
+
+class Gash
+  def commit(msg, opts={})
+    puts opts.inspect
+    return unless changed? || opts[:force]
+    commit = commit_tree(to_tree!, msg)
+    @sha1 = git_tree_sha1
+    commit
+  end
+end
+
 class Grancher
   attr_accessor :branch, :refspec, :push_to, :repo, :message
   attr_reader :gash, :files, :directories
@@ -132,7 +143,13 @@ class Grancher
   
   # Commits the changes.
   def commit(message = nil)
-    build.commit(message || message())
+    old_keys = gash.keys
+    build
+    if gash.keys.sort == old_keys.sort
+      gash.commit(message || message())
+    else
+      gash.commit(message || message(), :force => true)
+    end
   end
   
   private
