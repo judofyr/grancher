@@ -68,7 +68,6 @@ require 'gash'
 
 class Gash
   def commit(msg, opts={})
-    puts opts.inspect
     return unless changed? || opts[:force]
     commit = commit_tree(to_tree!, msg)
     @sha1 = git_tree_sha1
