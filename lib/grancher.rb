@@ -9,7 +9,7 @@ require 'gash'
 #
 #   require 'grancher'
 #   grancher = Grancher.new do |g|
-#     g.branch = 'gh-pages'         # alternatively, g.refspec = 'ghpages:/refs/heads/ghpages'
+#     g.branch = 'gh-pages'         # alternatively, g.refspec = 'ghpages:refs/heads/ghpages'
 #     g.push_to = 'origin'
 #     g.repo = 'some_repo'          # defaults to '.'
 #     g.message = 'Updated website' # defaults to 'Updated files.'
@@ -76,7 +76,7 @@ class Gash
 end
 
 class Grancher
-  attr_accessor :branch, :refspec, :push_to, :repo, :message
+  attr_accessor :branch, :refspec, :push_to, :repo, :message,  :tags
   attr_reader :gash, :files, :directories
   
   def initialize(&blk)
@@ -85,6 +85,7 @@ class Grancher
     @keep = []
     @repo = '.'
     @message = 'Updated files.'
+    @tags = []
     if block_given?
       if blk.arity == 1
         blk.call(self)
@@ -135,9 +136,23 @@ class Grancher
     @branch = branch
   end
 
+  # Tag the most recent checked-out commit
+  def tag(tag, tag_msg="", commit=nil)
+    @tags << tag
+    if commit
+      gash.send(:git, 'tag', '-f', '-a', '-m', tag_msg, tag, commit)
+    else
+      gash.send(:git, 'tag', '-f', '-a', '-m', tag_msg, tag)
+    end
+  end
+
   # Pushes the branch to the remote.
   def push
-    gash.send(:git, 'push', @push_to, @refspec)
+    if @tags.empty?
+      gash.send(:git, 'push', @push_to, @refspec)
+    else
+      gash.send(:git, 'push', '--tags', @push_to, @refspec)
+    end
   end
   
   # Commits the changes.
